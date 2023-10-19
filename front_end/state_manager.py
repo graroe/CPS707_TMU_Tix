@@ -30,6 +30,8 @@ class manager():
         self.load_current_events()
         return session_full_name[new_session] + " login successful"
     
+    
+    
     def load_current_events(self):
         pass
 
