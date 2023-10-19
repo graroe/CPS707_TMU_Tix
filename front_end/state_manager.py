@@ -17,8 +17,10 @@ class manager():
     def handle_transaction(self, raw_str):
         if raw_str == "login":
             return self.handle_login()
-        if raw_str == "logout":
+        elif raw_str == "logout":
             return self.handle_logout()
+        elif raw_str == "create" and self.login_state != False:
+            return self.handle_create()
         else:
             return False
         
@@ -40,7 +42,11 @@ class manager():
         return "Session terminated.\nType 'login' to continue."
     
     def handle_create(self):
-        pass
+        if self.login_state == "admin":
+            return "HELLO"
+        else:
+            return "Access denied. Must be in admin mode."
+    
 
     def handle_add(self):
         pass
