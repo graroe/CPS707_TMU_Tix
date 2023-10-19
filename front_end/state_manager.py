@@ -65,7 +65,7 @@ class manager():
                     print("Character limit exceeded")
 
             ### TODO: Ensure event_name is unique compared to existing events
-            ### if event_name == event[i]:
+            ### if event_name is in event_list:
             ###     event_name = ""
             ###     print("Event name already exists")
             
