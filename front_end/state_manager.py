@@ -60,7 +60,7 @@ class manager():
             
             ticket_amount = -1
             while ticket_amount < 0 or ticket_amount > 9999:
-                ticket_amount = input("Enter number of available tickets (max 9999): ")
+                ticket_amount = int(input("Enter number of available tickets (max 9999): "))
             
             ### TODO: write event_name, event_date, ticket_amount values into memory
 
