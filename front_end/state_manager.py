@@ -140,24 +140,20 @@ class manager():
     def handle_return(self):
         pass
     
+    ###                  ###
     ### HELPER FUNCTIONS ###
+    ###                  ###
+    
     def escape_character(self, input):
         if input == "!q" or input == "!Q":
             return True
         return False
 
-    def load_current_events(self):
-        pass
-
-    def write_current_events(self):
-        pass
-
     def valid_date(self, input):
-        ### TODO: Implement that dates must be in the future
+        ### TODO: Implement that dates must be in the future and within two years from today
 
         date = str(input)
         format = "%Y%m%d"
-        
         result = True
 
         try:
@@ -167,5 +163,9 @@ class manager():
         
         return result
 
-    
+    def load_current_events(self):
+        pass
+
+    def write_current_events(self):
+        pass
     
