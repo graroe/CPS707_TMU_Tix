@@ -30,7 +30,12 @@ class manager():
         self.load_current_events()
         return session_full_name[new_session] + " login successful"
     
-    
+    def handle_logout(self):
+        if self.login_state == False:
+            return "Not currently logged in."
+        self.login_state = False
+        self.write_current_events()
+        return "Session terminated."
     
     def load_current_events(self):
         pass

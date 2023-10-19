@@ -8,7 +8,5 @@ while True:
     if user_in == "quit":
         break
     print(manager.perform_transaction(user_in))
-
-print("Session terminated.")
 exit
     
