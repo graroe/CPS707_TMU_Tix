@@ -30,7 +30,6 @@ class manager():
         elif raw_str == "add" and self.login_state != False:
             return self.handle_add()
         elif raw_str == "delete" and self.login_state != False:
-            print("DELETE CALLED")
             return self.handle_delete()
         else:
             return False
@@ -133,7 +132,6 @@ class manager():
             return "Access denied. Must be in admin mode."
         
     def handle_delete(self):
-        print("DELETE ENTERED")
         if self.login_state == "admin":            
             event_name = ""
             while event_name == "":
@@ -162,9 +160,6 @@ class manager():
             return "Event " + str(event_name) + " deleted."
         else:
             return "Access denied. Must be in admin mode."
-
-    def handle_delete(self):
-        pass
 
     def handle_sell(self):
         pass
