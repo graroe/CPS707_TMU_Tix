@@ -53,8 +53,8 @@ class manager():
     
     def handle_create(self):
         if self.login_state == "admin":
+            
             event_name = ""
-
             while event_name == "":
                 event_name = input("Enter new event name (max 15 chars): ")
                 if self.escape_character(event_name):
