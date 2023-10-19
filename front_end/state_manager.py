@@ -29,6 +29,8 @@ class manager():
             return self.handle_create()
         elif raw_str == "add" and self.login_state != False:
             return self.handle_add()
+        elif raw_str == "delete" and self.login_state != False:
+            return self.handle_delete()
         else:
             return False
 
@@ -52,8 +54,7 @@ class manager():
         return "Session terminated.\nType 'login' to continue."
     
     def handle_create(self):
-        if self.login_state == "admin":
-            
+        if self.login_state == "admin":            
             event_name = ""
             while event_name == "":
                 event_name = input("Enter new event name (max 15 chars): ")
@@ -88,14 +89,13 @@ class manager():
             
             ### TODO: write values into Event object
 
-            return "Event " + event_name + " created."
+            return "Event " + str(event_name) + " created."
         else:
             return "Access denied. Must be in admin mode."
     
     def handle_add(self):
         if self.login_state == "admin":
             event_name = ""
-
             while event_name == "":
                 event_name = input("Enter event name: ")
                 if self.escape_character(event_name):
@@ -128,6 +128,37 @@ class manager():
             ###       ensure that new_amount is added to a separate buffer so it can't be sold in the same session
             new_total = new_amount + current_amount
             return str(new_amount) + " tickets added. New total: " + str(new_total)
+        else:
+            return "Access denied. Must be in admin mode."
+        
+    def handle_delete(self):
+        print("HELLO")
+        if self.login_state == "admin":            
+            event_name = ""
+            while event_name == "":
+                event_name = input("Enter event name: ")
+                if self.escape_character(event_name):
+                    return self.escape_text
+
+            ### TODO: Ensure event_name is unique compared to existing events
+            ### if event_name is in event_list:
+            ###     event_name = ""
+            ###     print("Event name already exists")
+            
+            user_input = ""
+            while True:
+                user_input = input("Enter the word 'delete' to confirm: ")
+                if self.escape_character(user_input):
+                    return self.escape_text
+                if user_input == "delete":
+                    break
+                else:
+                    user_input = ""
+                       
+            ### TODO: - write values into Event object
+            ###       - ensure that deleted event is removed from working memory
+
+            return "Event " + str(event_name) + " deleted."
         else:
             return "Access denied. Must be in admin mode."
 
