@@ -31,6 +31,10 @@ class manager():
             return self.handle_add()
         elif raw_str == "delete" and self.login_state != False:
             return self.handle_delete()
+        elif raw_str == "sell" and self.login_state != False:
+            return self.handle_sell()
+        elif raw_str == "return" and self.login_state != False:
+            return self.handle_return()
         else:
             return False
 
@@ -124,8 +128,8 @@ class manager():
                 else:
                     new_amount = int(user_input)
             
-            ### TODO: write values into Event object and buffer
-            ###       ensure that new_amount is added to a separate buffer so it can't be sold in the same session
+            ### TODO: - write values into Event object and Event Transaction File
+            ###       - ensure that new_amount is added to a separate buffer so it can't be sold in the same session
             new_total = new_amount + current_amount
             return str(new_amount) + " tickets added. New total: " + str(new_total)
         else:
@@ -139,10 +143,10 @@ class manager():
                 if self.escape_character(event_name):
                     return self.escape_text
 
-            ### TODO: Ensure event_name is unique compared to existing events
-            ### if event_name is in event_list:
+            ### TODO: ensure event_name exists in memory
+            ### if event_name is not in event_list:
             ###     event_name = ""
-            ###     print("Event name already exists")
+            ###     print("Event not found.")
             
             user_input = ""
             while True:
@@ -154,7 +158,7 @@ class manager():
                 else:
                     user_input = ""
                        
-            ### TODO: - write values into Event object
+            ### TODO: - write values into Event object and Event Transaction File
             ###       - ensure that deleted event is removed from working memory
 
             return "Event " + str(event_name) + " deleted."
@@ -162,10 +166,76 @@ class manager():
             return "Access denied. Must be in admin mode."
 
     def handle_sell(self):
-        pass
+        event_name = ""
+        while event_name == "":
+            event_name = input("Enter event name: ")
+            if self.escape_character(event_name):
+                return self.escape_text
+        ### TODO: ensure event_name exists in memory
+        ### if event_name is not in event_list:
+        ###     event_name = ""
+        ###     print("Event not found.")
+        
+        current_amount = 10     ### TODO: change to read from memory for specific event
+        new_amount = -1
+
+        print("Current number of tickets: " + str(current_amount))
+        while new_amount < 0:
+            user_input = input("Enter number of tickets to sell: ")
+            if self.escape_character(user_input):
+                return self.escape_text
+
+            if not user_input.isnumeric():
+                new_amount = -1
+            elif int(user_input) > current_amount:
+                new_amount = -1
+                print("Not enough tickets.")
+            else:
+                if self.login_state == "admin" or (self.login_state == "sales" and int(user_input) <= 8):
+                    new_amount = int(user_input)
+                else:
+                    new_amount = -1
+                    print("Maximum of 8 Tickets can be sold per transaction")
+        
+        ### TODO: - write values into Event object and Event Transaction File
+        new_total = current_amount - new_amount
+        return str(new_amount) + " tickets sold. New total: " + str(new_total)
 
     def handle_return(self):
-        pass
+        event_name = ""
+        while event_name == "":
+            event_name = input("Enter event name: ")
+            if self.escape_character(event_name):
+                return self.escape_text
+        ### TODO: ensure event_name exists in memory
+        ### if event_name is not in event_list:
+        ###     event_name = ""
+        ###     print("Event not found.")
+        
+        current_amount = 10     ### TODO: change to read from memory for specific event
+        new_amount = -1
+
+        print("Current number of tickets: " + str(current_amount))
+        while new_amount < 0:
+            user_input = input("Enter number of tickets to return: ")
+            if self.escape_character(user_input):
+                return self.escape_text
+
+            if not user_input.isnumeric():
+                new_amount = -1
+            elif int(user_input) + current_amount > 9999:
+                new_amount = -1
+                print("Total tickets cannot exceed 9999.")
+            else:
+                if self.login_state == "admin" or (self.login_state == "sales" and int(user_input) <= 8):
+                    new_amount = int(user_input)
+                else:
+                    new_amount = -1
+                    print("Maximum of 8 Tickets can be returned per transaction")
+        
+        ### TODO: - write values into Event object and Event Transaction File
+        new_total = current_amount + new_amount
+        return str(new_amount) + " tickets returned. New total: " + str(new_total)
     
     ###                  ###
     ### HELPER FUNCTIONS ###
