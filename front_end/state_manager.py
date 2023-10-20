@@ -1,14 +1,18 @@
 from datetime import datetime
 from event import event
+import re
 
 session_types = ["sales","admin"]
 session_full_name = {"sales":"Sales agent", "admin":"Admin"}
+current_events_filepath = "front_end/current_events.txt"
+current_events_endline = "End             0000"
 
 class manager():
     ### initializes a session
     def __init__(self):
         self.login_state = False
         self.escape_text = "Transaction canceled"
+        self.events = {}
     
     ### throws errors for invalid commands or if the user is not logged in.
     def perform_transaction(self, raw_str):
@@ -55,7 +59,7 @@ class manager():
         if self.login_state == False:
             return "Not currently logged in."
         self.login_state = False
-        self.write_current_events()
+        self.write_transaction_fie()
         return "Session terminated.\nType 'login' to continue."
     
     def handle_create(self):
@@ -265,9 +269,15 @@ class manager():
 
     ### loads data from event transaction file and populates a dictionary of Events objects
     def load_current_events(self):
-        pass
+        with open(current_events_filepath) as file:
+            loaded = file.read().splitlines()
+        for line in loaded:
+            if line == current_events_endline:
+                break
+            words = re.split(' +', line)
+            self.events[words[0]] = event(avail_tickets=int(words[1]))
     
-    ### parses the dictionary of Events objects into the format accepted by the event transaction file, and then writes to that file
-    def write_current_events(self):
+    ### parses the List of transactions into the format accepted by the event transaction file, and then writes to that file
+    def write_transaction_fie(self):
         pass
     
