@@ -9,4 +9,3 @@ while True:
         break
     print(manager.perform_transaction(user_in))
 exit
-    
