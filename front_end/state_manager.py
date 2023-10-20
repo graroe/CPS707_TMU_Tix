@@ -1,4 +1,5 @@
 from datetime import datetime
+from event import event
 
 session_types = ["sales","admin"]
 session_full_name = {"sales":"Sales agent", "admin":"Admin"}
