@@ -4,10 +4,12 @@ session_types = ["sales","admin"]
 session_full_name = {"sales":"Sales agent", "admin":"Admin"}
 
 class manager():
+    ### initializes a session
     def __init__(self):
         self.login_state = False
         self.escape_text = "Transaction canceled"
     
+    ### throws errors for invalid commands or if the user is not logged in.
     def perform_transaction(self, raw_str):
         result = self.handle_transaction(raw_str)
         if result == False:
@@ -17,9 +19,7 @@ class manager():
                 return "Unrecognized command."
         return result
 
-
-    ### COMMAND HANDLER ###
-
+    ### calls transaction handlers based on raw_str
     def handle_transaction(self, raw_str):
         if raw_str == "login":
             return self.handle_login()
@@ -241,13 +241,15 @@ class manager():
     ### HELPER FUNCTIONS ###
     ###                  ###
     
+    ### checks if the given input is the escape character
     def escape_character(self, input):
         if input == "!q" or input == "!Q":
             return True
         return False
 
+    ### checks if the given input is a valid date, and is after today and no more than two years from today
     def valid_date(self, input):
-        ### TODO: Implement that dates must be in the future and within two years from today
+        ### TODO: Implement that dates must be after today and no more than two years from today.
 
         date = str(input)
         format = "%Y%m%d"
@@ -260,9 +262,11 @@ class manager():
         
         return result
 
+    ### loads data from event transaction file and populates a dictionary of Events objects
     def load_current_events(self):
         pass
-
+    
+    ### parses the dictionary of Events objects into the format accepted by the event transaction file, and then writes to that file
     def write_current_events(self):
         pass
     
