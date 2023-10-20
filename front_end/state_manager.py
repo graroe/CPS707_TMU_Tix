@@ -13,6 +13,7 @@ class manager():
         self.login_state = False
         self.escape_text = "Transaction canceled"
         self.events = {}
+        self.transaction_records = []
     
     ### throws errors for invalid commands or if the user is not logged in.
     def perform_transaction(self, raw_str):
@@ -74,10 +75,9 @@ class manager():
                     event_name = ""
                     print("Character limit exceeded")
 
-            ### TODO: Ensure event_name is unique compared to existing events
-            ### if event_name is in event_list:
-            ###     event_name = ""
-            ###     print("Event name already exists")
+                if event_name in self.events.keys():
+                    event_name = ""
+                    print("Event name already exists")
             
             event_date = ""
             while not self.valid_date(event_date): 
@@ -96,8 +96,9 @@ class manager():
                 else:
                     ticket_amount = int(user_input)
             
-            ### TODO: write values into Event object
-
+            self.events[event_name] = event(date=event_date, new_tickets=ticket_amount)
+            self.transaction_records.append(self.construct_record("03", event_name, ticket_amount, date = event_date))
+            print(self.transaction_records)
             return "Event " + str(event_name) + " created."
         else:
             return "Access denied. Must be in admin mode."
@@ -267,6 +268,10 @@ class manager():
         
         return result
 
+    ### contructs transaction record string
+    def construct_record(self, code, name, tickets, date="00000000"):
+        return " ".join(code, name.ljust(15), date, tickets.rjust("0", 4))
+
     ### loads data from event transaction file and populates a dictionary of Events objects
     def load_current_events(self):
         with open(current_events_filepath) as file:
@@ -277,7 +282,7 @@ class manager():
             words = re.split(' +', line)
             self.events[words[0]] = event(avail_tickets=int(words[1]))
     
-    ### parses the List of transactions into the format accepted by the event transaction file, and then writes to that file
+    ### writes list of transaction records to file
     def write_transaction_fie(self):
         pass
     
