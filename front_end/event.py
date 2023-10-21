@@ -1,3 +1,4 @@
+#container class holding details relevant to a given event.
 class event():
     def __init__(self, date = "", avail_tickets = 0, new_tickets = 0):
         self.date = date
