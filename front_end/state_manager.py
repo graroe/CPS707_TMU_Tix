@@ -270,7 +270,7 @@ class manager():
 
     ### contructs transaction record string
     def construct_record(self, code, name, tickets, date="00000000"):
-        return " ".join(code, name.ljust(15), date, tickets.rjust("0", 4))
+        return " ".join([code, name.ljust(15), date, str(tickets).zfill(4)])
 
     ### loads data from event transaction file and populates a dictionary of Events objects
     def load_current_events(self):
