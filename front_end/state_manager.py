@@ -213,8 +213,8 @@ class manager():
                 event_name = ""
                 print("Event not found.")
         
-        event = event = self.events[event_name]
-        current_amount = event_name.avail_tickets
+        event = self.events[event_name]
+        current_amount = event.avail_tickets
         new_amount = -1
 
         print("Current number of tickets: " + str(current_amount))
