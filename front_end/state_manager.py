@@ -47,6 +47,8 @@ class manager():
 
     ### TRANSACTION HANDLERS ###   
 
+    # user will select either sales or admin permissions
+    # error message returned if already logged in.
     def handle_login(self):
         if self.login_state != False:
             return "Already logged in."
@@ -57,6 +59,8 @@ class manager():
         self.load_current_events()
         return session_full_name[new_session] + " login successful"
     
+    # session transactions are written to the Event Transaction File
+    # error message returned if not logged in.
     def handle_logout(self):
         if self.login_state == False:
             return "Not currently logged in."
@@ -64,6 +68,8 @@ class manager():
         self.write_transaction_file()
         return "Session terminated.\nType 'login' to continue."
     
+    # user must be in admin mode to perform this transaction
+    # user prompted for a new unique name, a valid date and a number of tickets not exceeding 9999 tickets.
     def handle_create(self):
         if self.login_state == "admin":            
             event_name = ""
@@ -101,6 +107,8 @@ class manager():
         else:
             return "Access denied. Must be in admin mode."
     
+    # user must be in admin mode to perform this transaction
+    # user prompted for an existing event name, and a number of tickets to add such that the total number does not exceed 9999 tickets.
     def handle_add(self):
         if self.login_state == "admin":
             event_name = ""
@@ -139,7 +147,8 @@ class manager():
         else:
             return "Access denied. Must be in admin mode."
             
-        
+    # user must be in admin mode to perform this transaction
+    # user prompted for an existing event name, and then to type 'delete' to confirm the transaction.
     def handle_delete(self):
         if self.login_state == "admin":            
             event_name = ""
@@ -166,6 +175,8 @@ class manager():
         else:
             return "Access denied. Must be in admin mode."
 
+    # user prompted for an existing event name and number of tickets to be sold.
+    # restricted to 8 tickets per transaction in sale agent mode.
     def handle_sell(self):
         event_name = ""
         while event_name == "":
@@ -203,6 +214,8 @@ class manager():
         self.transaction_records.append(self.construct_record("01", event_name, new_amount))
         return str(new_amount) + " tickets sold. New total: " + str(new_total)
 
+    # user prompted for an existing event name and number of tickets to be returned.
+    # restricted to 8 tickets per transaction in sale agent mode.
     def handle_return(self):
         event_name = ""
         while event_name == "":
@@ -235,7 +248,6 @@ class manager():
                     new_amount = -1
                     print("Maximum of 8 Tickets can be returned per transaction")
         
-        ### TODO: - write values into Event object and Event Transaction File
         new_total = current_amount + new_amount
         event.avail_tickets = new_total
         self.transaction_records.append(self.construct_record("02", event_name, new_amount))
@@ -245,13 +257,13 @@ class manager():
     ### HELPER FUNCTIONS ###
     ###                  ###
     
-    ### checks if the given input is the escape character
+    # checks if the given input is the escape character
     def escape_character(self, input):
         if input == "!q" or input == "!Q":
             return True
         return False
 
-    ### checks if the given input is a valid date, and is after today and no more than two years from today
+    # checks if the given input is a valid date, and is after today and no more than two years from today
     def valid_date(self, input):
 
         date = str(input)
@@ -271,11 +283,11 @@ class manager():
 
         return result
 
-    ### contructs transaction record string
+    # contructs transaction record string
     def construct_record(self, code, name, tickets, date="00000000"):
         return " ".join([code, name.ljust(15), date, str(tickets).zfill(4)])
 
-    ### loads data from event transaction file and populates a dictionary of Events objects
+    # loads data from event transaction file and populates a dictionary of Events objects
     def load_current_events(self):
         with open(current_events_filepath) as file:
             loaded = file.read().splitlines()
@@ -285,7 +297,7 @@ class manager():
             words = re.split(' +', line)
             self.events[words[0]] = event(avail_tickets=int(words[1]))
     
-    ### writes list of transaction records to file
+    # writes list of transaction records to file
     def write_transaction_file(self):
         with open(daily_transaction_filepath, 'w') as file:
             for record in self.transaction_records:
