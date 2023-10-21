@@ -149,24 +149,21 @@ class manager():
                 event_name = input("Enter event name: ")
                 if self.escape_character(event_name):
                     return self.escape_text
-
-            ### TODO: ensure event_name exists in memory
-            ### if event_name is not in event_list:
-            ###     event_name = ""
-            ###     print("Event not found.")
+                if not event_name in self.events.keys():
+                    event_name = ""
+                    print("Event not found.")
+                    user_input = ""
             
-            user_input = ""
             while True:
                 user_input = input("Enter the word 'delete' to confirm: ")
                 if self.escape_character(user_input):
                     return self.escape_text
                 if user_input == "delete":
                     break
-                else:
-                    user_input = ""
-                       
-            ### TODO: - write values into Event object and Event Transaction File
-            ###       - ensure that deleted event is removed from working memory
+                user_input = ""
+
+            self.transaction_records.append(self.construct_record("05", event_name, 0))
+            self.events.pop(event_name)           
 
             return "Event " + str(event_name) + " deleted."
         else:
