@@ -110,13 +110,13 @@ class manager():
                 event_name = input("Enter event name: ")
                 if self.escape_character(event_name):
                     return self.escape_text
-            ### TODO: ensure event_name exists in memory
-            ### if event_name is not in event_list:
-            ###     event_name = ""
-            ###     print("Event not found.")
+                if not event_name in self.events.keys():
+                    event_name = ""
+                    print("Event not found.")
             
-            event_date = 20231031   ### TODO: change to read from memory for specific event
-            current_amount = 10     ### TODO: change to read from memory for specific event
+            event = self.events[event_name]
+            event_date = event.date   
+            current_amount = event.avail_tickets + event.new_tickets
             new_amount = -1
 
             print("Event Date: " + str(event_date))
@@ -134,12 +134,13 @@ class manager():
                 else:
                     new_amount = int(user_input)
             
-            ### TODO: - write values into Event object and Event Transaction File
-            ###       - ensure that new_amount is added to a separate buffer so it can't be sold in the same session
             new_total = new_amount + current_amount
+            event.new_tickets = new_total
+            self.transaction_records.append(self.construct_record("04", event_name, new_amount, date = event_date))
             return str(new_amount) + " tickets added. New total: " + str(new_total)
         else:
             return "Access denied. Must be in admin mode."
+            
         
     def handle_delete(self):
         if self.login_state == "admin":            
