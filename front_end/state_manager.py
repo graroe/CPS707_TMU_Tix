@@ -97,7 +97,6 @@ class manager():
             
             self.events[event_name] = event(date=event_date, new_tickets=ticket_amount)
             self.transaction_records.append(self.construct_record("03", event_name, ticket_amount, date = event_date))
-            print(self.transaction_records)
             return "Event " + str(event_name) + " created."
         else:
             return "Access denied. Must be in admin mode."
@@ -254,17 +253,22 @@ class manager():
 
     ### checks if the given input is a valid date, and is after today and no more than two years from today
     def valid_date(self, input):
-        ### TODO: Implement that dates must be after today and no more than two years from today.
 
         date = str(input)
         format = "%Y%m%d"
         result = True
 
         try:
-            result = bool(datetime.strptime(date, format))
+            date = datetime.strptime(date, format)
+            result = bool(date)
         except ValueError:
             result = False
         
+        upper_limit = datetime(datetime.today().year + 2, datetime.today().month, datetime.today().day)
+        if result == True and (datetime.today() > date or date > upper_limit):
+            print("Date must be between tomorrow and 2 years in the future.")
+            result = False
+
         return result
 
     ### contructs transaction record string
