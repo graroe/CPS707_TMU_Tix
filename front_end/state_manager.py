@@ -4,6 +4,7 @@ import re
 
 session_types = ["sales","admin"]
 session_full_name = {"sales":"Sales agent", "admin":"Admin"}
+daily_transaction_filepath = "daily_transaction.txt"
 current_events_filepath = "front_end/current_events.txt"
 current_events_endline = "End             0000"
 
@@ -60,7 +61,7 @@ class manager():
         if self.login_state == False:
             return "Not currently logged in."
         self.login_state = False
-        self.write_transaction_fie()
+        self.write_transaction_file()
         return "Session terminated.\nType 'login' to continue."
     
     def handle_create(self):
@@ -177,7 +178,7 @@ class manager():
                 print("Event not found.")
         
         event = self.events[event_name]
-        current_amount = event_name.avail_tickets
+        current_amount = event.avail_tickets
         new_amount = -1
 
         print("Current number of tickets: " + str(current_amount))
@@ -281,6 +282,11 @@ class manager():
             self.events[words[0]] = event(avail_tickets=int(words[1]))
     
     ### writes list of transaction records to file
-    def write_transaction_fie(self):
-        pass
+    def write_transaction_file(self):
+        with open(daily_transaction_filepath, 'w') as file:
+            for record in self.transaction_records:
+                file.write(record + '\n')
+            file.write(self.construct_record("00", "", 0))
+                                             
+
     
