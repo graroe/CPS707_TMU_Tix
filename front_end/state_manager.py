@@ -1,5 +1,7 @@
 ### This module handles the state of the Front End system using system commands (login, logout, sales, admin, !q), and transaction commands (create, add, delete, sell, return). The user input is passed into the state_manager from the main loop of front_end.py
 
+### A dictionary of event objects  and a list of transaction records are held in memory during a session. The dictionary is populated from the Current Events File upon login, and the list of transactions are written to the Daily Transaction File upon logout.
+
 from datetime import datetime
 from event import event
 import re
