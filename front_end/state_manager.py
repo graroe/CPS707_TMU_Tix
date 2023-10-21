@@ -70,11 +70,9 @@ class manager():
                 event_name = input("Enter new event name (max 15 chars): ")
                 if self.escape_character(event_name):
                     return self.escape_text
-
                 if len(event_name) > 15:
                     event_name = ""
                     print("Character limit exceeded")
-
                 if event_name in self.events.keys():
                     event_name = ""
                     print("Event name already exists")
@@ -152,7 +150,6 @@ class manager():
                 if not event_name in self.events.keys():
                     event_name = ""
                     print("Event not found.")
-                    user_input = ""
             
             while True:
                 user_input = input("Enter the word 'delete' to confirm: ")
@@ -175,12 +172,12 @@ class manager():
             event_name = input("Enter event name: ")
             if self.escape_character(event_name):
                 return self.escape_text
-        ### TODO: ensure event_name exists in memory
-        ### if event_name is not in event_list:
-        ###     event_name = ""
-        ###     print("Event not found.")
+            if not event_name in self.events.keys():
+                event_name = ""
+                print("Event not found.")
         
-        current_amount = 10     ### TODO: change to read from memory for specific event
+        event = self.events[event_name]
+        current_amount = event_name.avail_tickets
         new_amount = -1
 
         print("Current number of tickets: " + str(current_amount))
@@ -200,9 +197,10 @@ class manager():
                 else:
                     new_amount = -1
                     print("Maximum of 8 Tickets can be sold per transaction")
-        
-        ### TODO: - write values into Event object and Event Transaction File
+
         new_total = current_amount - new_amount
+        event.avail_tickets = new_total
+        self.transaction_records.append(self.construct_record("01", event_name, new_amount))
         return str(new_amount) + " tickets sold. New total: " + str(new_total)
 
     def handle_return(self):
@@ -211,12 +209,12 @@ class manager():
             event_name = input("Enter event name: ")
             if self.escape_character(event_name):
                 return self.escape_text
-        ### TODO: ensure event_name exists in memory
-        ### if event_name is not in event_list:
-        ###     event_name = ""
-        ###     print("Event not found.")
+            if not event_name in self.events.keys():
+                event_name = ""
+                print("Event not found.")
         
-        current_amount = 10     ### TODO: change to read from memory for specific event
+        event = event = self.events[event_name]
+        current_amount = event_name.avail_tickets
         new_amount = -1
 
         print("Current number of tickets: " + str(current_amount))
@@ -239,6 +237,8 @@ class manager():
         
         ### TODO: - write values into Event object and Event Transaction File
         new_total = current_amount + new_amount
+        event.avail_tickets = new_total
+        self.transaction_records.append(self.construct_record("02", event_name, new_amount))
         return str(new_amount) + " tickets returned. New total: " + str(new_total)
     
     ###                  ###
