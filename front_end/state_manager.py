@@ -1,4 +1,4 @@
-### This module handles the state of the Front End system using commands (login, logout, sales, admin, !q), and using user input to perform the various transactions (create, add, delete, sell, return). The user input is passed into the state_manager from the main loop of front_end.py
+### This module handles the state of the Front End system using system commands (login, logout, sales, admin, !q), and transaction commands (create, add, delete, sell, return). The user input is passed into the state_manager from the main loop of front_end.py
 
 from datetime import datetime
 from event import event
