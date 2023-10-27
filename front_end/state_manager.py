@@ -9,16 +9,16 @@ import re
 session_types = ["sales","admin"]
 session_full_name = {"sales":"Sales agent", "admin":"Admin"}
 daily_transaction_filepath = "daily_transaction.txt"
-current_events_filepath = "front_end/current_events.txt"
 current_events_endline = "End             0000"
 
 class manager():
     ### initializes a session
-    def __init__(self):
+    def __init__(self, current_events_filepath="front_end/current_events.txt"):
         self.login_state = False
         self.escape_text = "Transaction canceled"
         self.events = {}
         self.transaction_records = []
+        self.current_events_filepath = current_events_filepath
     
     ### throws errors for invalid commands or if the user is not logged in.
     def perform_transaction(self, raw_str):
@@ -293,7 +293,7 @@ class manager():
 
     # loads data from event transaction file and populates a dictionary of Events objects
     def load_current_events(self):
-        with open(current_events_filepath) as file:
+        with open(self.current_events_filepath) as file:
             loaded = file.read().splitlines()
         for line in loaded:
             if line == current_events_endline:
