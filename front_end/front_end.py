@@ -5,6 +5,7 @@
 #This module initializes a manager object and then controls the
 #a loop to perform transactions.
 import argparse
+import time
 from state_manager import manager 
 
 arg_parser = argparse.ArgumentParser()
@@ -21,8 +22,12 @@ else:
 
 print("Type 'login' to continue.")
 while True:
-    user_in = input()
+    try:
+        user_in = input()
+    except EOFError:
+        time.sleep(2)
+        print("yikes, an EOF")
     if user_in == "quit":
         break
     print(s_manager.perform_transaction(user_in))
-exit
+exit(0)
