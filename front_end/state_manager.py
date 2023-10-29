@@ -60,8 +60,10 @@ class manager():
         while not new_session in session_types:
             new_session = input("Enter session type (sales or admin): ")
         self.login_state = new_session
-        self.load_current_events()
-        return session_full_name[new_session] + " login successful"
+
+        #TODO: Ensure that load current events operates as expected
+        #self.load_current_events()
+        return session_full_name[new_session] + " login successful."
     
     # session transactions are written to the Event Transaction File
     # error message returned if not logged in.
