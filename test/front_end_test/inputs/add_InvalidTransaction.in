@@ -1,7 +1,9 @@
 login
 admin
-create
+add
 CirqueDuSoliel
-123456789AbCdEfG
+10
+sell
+CirqueDuSoliel
 !q
 logout

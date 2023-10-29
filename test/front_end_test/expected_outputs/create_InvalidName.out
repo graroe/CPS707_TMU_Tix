@@ -1,0 +1,7 @@
+Enter session type <sales or admin>: 
+Admin login successful.
+Enter new event name <max 15 chars>: 
+Event name already exists\nEnter new event name <max 15 chars>: 
+Character limit exceeded\nEnter new event name <max 15 chars>: 
+Transaction canceled
+Session terminated.

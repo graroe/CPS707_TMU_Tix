@@ -1,0 +1,6 @@
+Enter session type <sales or admin>: 
+Admin login successful.
+Enter event name: 
+Event Date: 2023/10/27\nCurrent number of tickets: 11\nEnter number of tickets to add: 
+11 tickets added. New total: 21
+Session terminated.

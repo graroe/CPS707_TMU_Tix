@@ -1,11 +1,11 @@
 login
 admin
 create
-NewEvent
+CirqueDuSoleil
 20231027
-10000
-ten
-300.5
--1
+!q
+add
+!q
+delete
 !q
 logout
