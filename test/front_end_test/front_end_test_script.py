@@ -24,6 +24,7 @@ for file_name in os.listdir():
     #stay in this dir to write actual outputs into
     os.chdir("../actual_outputs")
     with open(test_name +"_result.txt", 'w') as o_file:
+        #spawn program, feed it inputs line by line, expects expected output lines, write resuts to file
         prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py ../resources/current_events_example.txt")
         i = 0
         prog.expect("Type 'login' to continue.")
@@ -32,11 +33,14 @@ for file_name in os.listdir():
             try:
                 prog.expect(expected[i], timeout = 2)
             except pexpect.exceptions.TIMEOUT:
-                #o_file.write("command on line " + str(i + 1) + " failed \n")
+                #this occurs when expected does not match. Writes actua console output to file
                 o_file.write(prog.before.decode('utf-8').replace("\r\n", "\n"))
                 break
             o_file.write(prog.after.decode('utf-8') + "\n")
             i += 1  
+
+    #compare actual written file to expected file and expected daily file (if applicable), ensure no diffs
+    #failed test details written to log file
     with open(test_name +"_result.txt") as o_file:
         actual_output = o_file.read()[:-1]
     os.chdir("../expected_outputs")
@@ -64,7 +68,7 @@ for file_name in os.listdir():
             comparison = "EXPECTED:\n" + expected_output + "\nACTUAL:\n" + actual_output +"\n******\n"
             log_file.write(comparison)
         if not daily_file_success:
-            log_file.write("daily transaction file not match expected\n")
+            log_file.write("daily transaction file did not match expected\n")
             comparison = "EXPECTED:\n" + expected_daily + "\nACTUAL:\n" + actual_daily +"\n"
             log_file.write(comparison)
     
