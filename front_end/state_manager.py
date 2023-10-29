@@ -62,6 +62,8 @@ class manager():
         new_session = ""
         while not new_session in session_types:
             new_session = input("Enter session type <sales or admin>: ")
+            if self.escape_character(new_session):
+                    return self.escape_text
         self.login_state = new_session
 
         self.load_current_events()
@@ -135,7 +137,6 @@ class manager():
             current_amount = event.avail_tickets + event.new_tickets
             new_amount = -1
 
-            print("Event Date: " + str(event_date))
             print("Current number of tickets: " + str(current_amount))
             while new_amount < 0 or new_amount + current_amount >= 9999:
                 user_input = input("Enter number of tickets to add: ")
@@ -168,7 +169,7 @@ class manager():
                     return self.escape_text
                 if not event_name in self.events.keys():
                     event_name = ""
-                    print("Event not found.")
+                    print("Event not found. ")
             
             while True:
                 user_input = input("Enter the word \"delete\" to confirm: ")
@@ -269,7 +270,7 @@ class manager():
     
     # checks if the given input is the escape character
     def escape_character(self, input):
-        if input == "!q" or input == "!Q":
+        if input == "!q" or input == "!Q" or input == "qq":
             return True
         return False
 

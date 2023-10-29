@@ -31,9 +31,9 @@ for file_name in os.listdir():
         for input_line in inputs:
             prog.sendline(input_line)
             try:
-                prog.expect(expected[i], timeout = 2)
+                prog.expect(expected[i], timeout = 1)
             except pexpect.exceptions.TIMEOUT:
-                #this occurs when expected does not match. Writes actua console output to file
+                #this occurs when expected does not match. Writes actual console output to file
                 o_file.write(prog.before.decode('utf-8').replace("\r\n", "\n"))
                 break
             o_file.write(prog.after.decode('utf-8') + "\n")
@@ -42,10 +42,11 @@ for file_name in os.listdir():
     #compare actual written file to expected file and expected daily file (if applicable), ensure no diffs
     #failed test details written to log file
     with open(test_name +"_result.txt") as o_file:
-        actual_output = o_file.read()[:-1]
+        actual_output = o_file.read().rstrip('\n')
     os.chdir("../expected_outputs")
     with open(test_name + ".out") as e_file:
-        expected_output = e_file.read()
+        expected_output = e_file.read().replace("\\n", "\n") #Comment out .replace... to see newline chars in expected
+                                                                #note: may cause some tests to fail
     success = actual_output == expected_output
     daily_file_success = True
     actual_daily = "did not write"
