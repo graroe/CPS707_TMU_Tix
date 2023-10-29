@@ -1,0 +1,7 @@
+Enter session type <sales or admin>: 
+Admin login successful.
+Enter new event name <max 15 chars>: 
+Enter date of event <format YYYYMMDD>: 
+Enter number of available tickets: 
+Event CirqueDuSoliel created.
+Session terminated.

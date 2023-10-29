@@ -1,0 +1,12 @@
+Enter session type <sales or admin>: 
+Admin login successful.
+Enter new event name <max 15 chars>: 
+Enter date of event <format YYYYMMDD>: 
+Not a valid date.\nEnter date of event <format YYYYMMD>: 
+Not a valid date.\nEnter date of event <format YYYYMMD>: 
+Not a valid date.\nEnter date of event <format YYYYMMD>: 
+Not a valid date.\nEnter date of event <format YYYYMMD>: 
+Not a valid date.\nEnter date of event <format YYYYMMD>: 
+Not a valid date.\nEnter date of event <format YYYYMMD>: 
+Transaction canceled.
+Session terminated.
