@@ -65,7 +65,7 @@ for file_name in os.listdir():
             log_file.write(comparison)
         if not daily_file_success:
             log_file.write("daily transaction file not match expected\n")
-            comparison = "expected:\n" + expected + "\n******\n" + "actual:\n" + actual +"\n"
+            comparison = "expected:\n" + expected_daily + "\n******\n" + "actual:\n" + actual_daily +"\n"
             log_file.write(comparison)
     
     #reset for beginning of loop

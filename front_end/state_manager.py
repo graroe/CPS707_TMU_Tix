@@ -13,12 +13,15 @@ current_events_endline = "End             0000"
 
 class manager():
     ### initializes a session
-    def __init__(self, current_events_filepath="front_end/current_events.txt"):
+    ### can specify a filepath if we want to read a different events file than the default (mainly for testing)
+    ### can specify a "dummy" date time for use in testing
+    def __init__(self, current_events_filepath="front_end/current_events.txt", test_date_time=False):
         self.login_state = False
         self.escape_text = "Transaction canceled"
         self.events = {}
         self.transaction_records = []
         self.current_events_filepath = current_events_filepath
+        self.test_date_time = test_date_time
     
     ### throws errors for invalid commands or if the user is not logged in.
     def perform_transaction(self, raw_str):
@@ -61,7 +64,7 @@ class manager():
             new_session = input("Enter session type <sales or admin>: ")
         self.login_state = new_session
 
-        #self.load_current_events()
+        self.load_current_events()
         return session_full_name[new_session] + " login successful."
     
     # session transactions are written to the Event Transaction File
