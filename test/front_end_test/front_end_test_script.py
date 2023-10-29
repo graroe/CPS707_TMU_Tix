@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import time
 import pexpect
 from pexpect import popen_spawn
 
@@ -64,10 +65,12 @@ for file_name in os.listdir():
             log_file.write(comparison)
         if not daily_file_success:
             log_file.write("daily transaction file not match expected\n")
-            comparison = "expected:\n" + expected_daily + "\n******\n" + "actual:\n" + actual_daily +"\n"
+            comparison = "expected:\n" + expected + "\n******\n" + "actual:\n" + actual +"\n"
             log_file.write(comparison)
     
     #reset for beginning of loop
+    if os.path.exists("../actual_outputs/daily_transaction.txt"):
+        os.remove("../actual_outputs/daily_transaction.txt")
     log_file.write("\n")
     os.chdir("../inputs")
     
