@@ -23,10 +23,7 @@ for file_name in os.listdir():
         prog.expect("Type 'login' to continue.")
         for input_line in inputs:
             prog.sendline(input_line)
-            prog.expect(expected[i], timeout = 5)
+            prog.expect(expected[i], timeout = 30)
             o_file.write(prog.after.decode('utf-8') + "\n")
             i += 1
-        
-
-
-        
+       

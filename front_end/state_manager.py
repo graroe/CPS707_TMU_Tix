@@ -95,6 +95,8 @@ class manager():
                 event_date = input("Enter date of event <format YYYYMMDD>: ")
                 if self.escape_character(event_date):
                     return self.escape_text
+                #added before push
+                print("Not a valid date.")
             
             ticket_amount = -1
             while ticket_amount < 0 or ticket_amount > 9999:
