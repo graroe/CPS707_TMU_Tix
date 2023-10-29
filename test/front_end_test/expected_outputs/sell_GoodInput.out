@@ -1,0 +1,9 @@
+Enter session type <sales or admin>: 
+Sales login successful.
+Enter event name: 
+Current number of tickets: 10\nEnter number of tickets to sell: 
+6 tickets sold. New total: 4
+Enter event name: 
+Current number of tickets: 4\nEnter number of tickets to sell: 
+1 tickets sold. New total: 3
+Session terminated.

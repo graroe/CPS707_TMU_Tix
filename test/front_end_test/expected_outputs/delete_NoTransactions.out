@@ -1,0 +1,15 @@
+Enter session type <sales or admin>: 
+Admin login successful.
+Enter event name: 
+Enter the word “delete” to confirm: 
+Event CirqueDuSoliel deleted.
+Enter event name: 
+Event not found.\nEnter event name: 
+Transaction canceled
+Enter event name: 
+Event not found.\nEnter event name: 
+Transaction canceled
+Enter event name: 
+Event not found.\nEnter event name: 
+Transaction canceled
+Session terminated.
