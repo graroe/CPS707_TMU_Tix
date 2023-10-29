@@ -58,7 +58,7 @@ class manager():
             return "Already logged in."
         new_session = ""
         while not new_session in session_types:
-            new_session = input("Enter session type (sales or admin): ")
+            new_session = input("Enter session type <sales or admin>: ")
         self.login_state = new_session
 
         #TODO: Ensure that load current events operates as expected
@@ -80,7 +80,7 @@ class manager():
         if self.login_state == "admin":            
             event_name = ""
             while event_name == "":
-                event_name = input("Enter new event name (max 15 chars): ")
+                event_name = input("Enter new event name <max 15 chars>: ")
                 if self.escape_character(event_name):
                     return self.escape_text
                 if len(event_name) > 15:
@@ -92,13 +92,13 @@ class manager():
             
             event_date = ""
             while not self.valid_date(event_date): 
-                event_date = input("Enter date of event (format YYYYMMDD): ")
+                event_date = input("Enter date of event <format YYYYMMDD>: ")
                 if self.escape_character(event_date):
                     return self.escape_text
             
             ticket_amount = -1
             while ticket_amount < 0 or ticket_amount > 9999:
-                user_input = input("Enter number of available tickets (max 9999): ")
+                user_input = input("Enter number of available tickets <max 9999>: ")
                 if self.escape_character(user_input):
                     return self.escape_text
 
