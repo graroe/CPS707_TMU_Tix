@@ -17,10 +17,8 @@ for file_name in os.listdir():
         expected = e_file.read().splitlines()
     #make new file to store test result in 
     with open("../actual_outputs/" + test_name +"_result.txt", 'w') as o_file:
-    
         os.chdir("../actual_outputs")  
-        prog = pexpect.popen_spawn.PopenSpawn("python ../../../front_end/front_end.py")
-        #prog=pexpect.spawn("python3 ../../../front_end/front_end.py")
+        prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py")
         i = 0
         prog.expect("Type 'login' to continue.")
         for input_line in inputs:
@@ -28,5 +26,7 @@ for file_name in os.listdir():
             prog.expect(expected[i], timeout = 5)
             o_file.write(prog.after.decode('utf-8') + "\n")
             i += 1
+        
+
 
         
