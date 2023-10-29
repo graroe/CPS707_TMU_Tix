@@ -171,7 +171,7 @@ class manager():
                     print("Event not found.")
             
             while True:
-                user_input = input("Enter the word 'delete' to confirm: ")
+                user_input = input("Enter the word \"delete\" to confirm: ")
                 if self.escape_character(user_input):
                     return self.escape_text
                 if user_input == "delete":

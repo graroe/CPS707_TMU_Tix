@@ -32,11 +32,11 @@ for file_name in os.listdir():
             try:
                 prog.expect(expected[i], timeout = 2)
             except pexpect.exceptions.TIMEOUT:
-                o_file.write("command on line " + str(i + 1) + " failed \n")
+                #o_file.write("command on line " + str(i + 1) + " failed \n")
+                o_file.write(prog.before.decode('utf-8').replace("\r\n", "\n"))
                 break
             o_file.write(prog.after.decode('utf-8') + "\n")
-            i += 1
-            
+            i += 1  
     with open(test_name +"_result.txt") as o_file:
         actual_output = o_file.read()[:-1]
     os.chdir("../expected_outputs")
@@ -54,18 +54,18 @@ for file_name in os.listdir():
                 actual_daily = daily_file.read()
         daily_file_success = expected_daily == actual_daily
     if success and daily_file_success:
-        print("sucesss!")
+        print("sucesss!\n")
         log_file.write(" test succeeded\n")  
     else:
-        print("failed. check log file" + log_file.name + " for details")
+        print("failed. check log file" + log_file.name + " for details\n")
         log_file.write(" test failed\n")
         if not success:
             log_file.write("console output did not match expected\n")
-            comparison = "expected:\n" + expected_output + "\n******\n" + "actual:\n" + actual_output +"\n"
+            comparison = "EXPECTED:\n" + expected_output + "\nACTUAL:\n" + actual_output +"\n******\n"
             log_file.write(comparison)
         if not daily_file_success:
             log_file.write("daily transaction file not match expected\n")
-            comparison = "expected:\n" + expected_daily + "\n******\n" + "actual:\n" + actual_daily +"\n"
+            comparison = "EXPECTED:\n" + expected_daily + "\nACTUAL:\n" + actual_daily +"\n"
             log_file.write(comparison)
     
     #reset for beginning of loop

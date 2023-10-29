@@ -13,11 +13,11 @@ arg_parser.add_argument("found", type=str, nargs='*')
 args = arg_parser.parse_args()
 found = args.found
 s_manager = None
-if len(found) > 0:
-    if len(found)>1:
-        pass
-    #TODO: Add fake date handling
+#Check command line arguments optional and/or test properties
+if len(found) == 1:
     s_manager = manager(current_events_filepath=found[0])
+elif len(found) > 1 :
+    s_manager = manager(current_events_filepath=found[0], )
 else:
     s_manager = manager()
 
