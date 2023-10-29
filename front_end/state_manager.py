@@ -61,7 +61,6 @@ class manager():
             new_session = input("Enter session type <sales or admin>: ")
         self.login_state = new_session
 
-        #TODO: Ensure that load current events operates as expected
         #self.load_current_events()
         return session_full_name[new_session] + " login successful."
     

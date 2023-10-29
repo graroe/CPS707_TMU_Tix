@@ -5,7 +5,8 @@ from pexpect import popen_spawn
 
 time_now = datetime.now()
 #creates new log file for whole test run
-log_file = open("test/front_end_test/test_logs/test_run_" + time_now.strftime("%Y%m%d%H%M%S") +".txt", 'w')
+log_file_name = "test_run_" + time_now.strftime("%Y%m%d%H%M%S") +".txt"
+log_file = open("test/front_end_test/test_logs/" + log_file_name, 'w')
 #sets working directory
 os.chdir("test/front_end_test/inputs")
 #loop for each file in input directory.
@@ -18,10 +19,11 @@ for file_name in os.listdir():
         inputs = file.read().splitlines()
     with open("../expected_outputs/" + test_name + ".out") as e_file:
         expected = e_file.read().splitlines()
-    #make new file to store test result in 
-    with open("../actual_outputs/" + test_name +"_result.txt", 'w') as o_file:
-        os.chdir("../actual_outputs")  
-        prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py")
+    #make new file to store test result in
+    #stay in this dir to write actual outputs into
+    os.chdir("../actual_outputs")
+    with open(test_name +"_result.txt", 'w') as o_file:
+        prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py ../resources/current_events_example.txt")
         i = 0
         prog.expect("Type 'login' to continue.")
         for input_line in inputs:
@@ -40,15 +42,33 @@ for file_name in os.listdir():
     with open(test_name + ".out") as e_file:
         expected_output = e_file.read()
     success = actual_output == expected_output
-    if success:
+    daily_file_success = True
+    actual_daily = "did not write"
+    expected_daily = ""
+    if os.path.exists(test_name + "_Daily.out"):
+        with open(test_name + "_Daily.out") as e_daily_file:
+            expected_daily = e_daily_file.read()
+        if os.path.exists("../actual_outputs/daily_transaction.txt"):
+            with open("../actual_outputs/daily_transaction.txt") as daily_file:
+                actual_daily = daily_file.read()
+        daily_file_success = expected_daily == actual_daily
+    if success and daily_file_success:
         print("sucesss!")
         log_file.write(" test succeeded\n")  
     else:
-        print("fail")
+        print("failed. check log file" + log_file.name + " for details")
         log_file.write(" test failed\n")
-        comparison = "expected:\n" + expected_output + "\n******\n" + "actual:\n" + actual_output +"\n\n"
-        print(comparison)
-        log_file.write(comparison)
+        if not success:
+            log_file.write("console output did not match expected\n")
+            comparison = "expected:\n" + expected_output + "\n******\n" + "actual:\n" + actual_output +"\n"
+            log_file.write(comparison)
+        if not daily_file_success:
+            log_file.write("daily transaction file not match expected\n")
+            comparison = "expected:\n" + expected_daily + "\n******\n" + "actual:\n" + actual_daily +"\n"
+            log_file.write(comparison)
+    
+    #reset for beginning of loop
+    log_file.write("\n")
     os.chdir("../inputs")
     
 log_file.close()

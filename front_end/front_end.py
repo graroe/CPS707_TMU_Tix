@@ -16,17 +16,14 @@ s_manager = None
 if len(found) > 0:
     if len(found)>1:
         pass
+    #TODO: Add fake date handling
     s_manager = manager(current_events_filepath=found[0])
 else:
     s_manager = manager()
 
 print("Type 'login' to continue.")
 while True:
-    try:
-        user_in = input()
-    except EOFError:
-        time.sleep(2)
-        print("yikes, an EOF")
+    user_in = input()
     if user_in == "quit":
         break
     print(s_manager.perform_transaction(user_in))
