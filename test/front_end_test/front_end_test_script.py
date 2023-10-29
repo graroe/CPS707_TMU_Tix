@@ -46,9 +46,10 @@ for file_name in os.listdir():
     else:
         print("fail")
         log_file.write(" test failed\n")
-        comparison = "expected:\n" + expected_output + "\n******\n" + "actual:\n" + actual_output
+        comparison = "expected:\n" + expected_output + "\n******\n" + "actual:\n" + actual_output +"\n\n"
         print(comparison)
         log_file.write(comparison)
+    os.chdir("../inputs")
     
 log_file.close()
 
