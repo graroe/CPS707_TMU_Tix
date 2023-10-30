@@ -195,6 +195,7 @@ class manager():
             event_name = input("Enter event name: ")
             if self.escape_character(event_name):
                 return self.escape_text
+            
             if not event_name in self.events.keys():
                 event_name = ""
                 print("Event not found.")
@@ -260,6 +261,7 @@ class manager():
                     new_amount = -1
                     print("Maximum of 8 Tickets can be returned per transaction")
         
+        ### return_CannotExceed error (tickets not updating after add transaction) is likely caused here
         new_total = current_amount + new_amount
         event.avail_tickets = new_total
         self.transaction_records.append(self.construct_record("02", event_name, new_amount))
@@ -317,6 +319,3 @@ class manager():
             for record in self.transaction_records:
                 file.write(record + '\n')
             file.write(self.construct_record("00", "", 0))
-                                             
-
-    

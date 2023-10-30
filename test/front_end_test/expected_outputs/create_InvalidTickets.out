@@ -3,7 +3,7 @@ Admin login successful.
 Enter new event name <max 15 chars>: 
 Enter date of event <format YYYYMMDD>: 
 Enter number of available tickets <max 9999>: 
-Cannot exceed 9999 tickets.\nEnter number of available tickets <max 9999>: 
+Enter number of available tickets <max 9999>: 
 Enter number of available tickets <max 9999>: 
 Enter number of available tickets <max 9999>: 
 Enter number of available tickets <max 9999>: 
