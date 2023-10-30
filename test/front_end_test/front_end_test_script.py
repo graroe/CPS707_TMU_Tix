@@ -25,7 +25,8 @@ for file_name in os.listdir():
     os.chdir("../actual_outputs")
     with open(test_name +"_result.txt", 'w') as o_file:
         #spawn program, feed it inputs line by line, expects expected output lines, write resuts to file
-        prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py ../resources/current_events_example.txt")
+        prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py" +
+                                               " ../resources/current_events_example.txt" +" 20231020")
         i = 0
         prog.expect("Type 'login' to continue.")
         for input_line in inputs:

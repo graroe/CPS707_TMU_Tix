@@ -287,9 +287,11 @@ class manager():
             result = bool(date)
         except ValueError:
             result = False
-        
-        upper_limit = datetime(datetime.today().year + 2, datetime.today().month, datetime.today().day)
-        if result == True and (datetime.today() > date or date > upper_limit):
+        current_datetime = datetime.today()
+        if self.test_date_time != False:
+             current_datetime = datetime.strptime(self.test_date_time, format)
+        upper_limit = datetime(current_datetime.year + 2, current_datetime.month, current_datetime.day)
+        if result == True and (current_datetime > date or date > upper_limit):
             print("Date must be between tomorrow and 2 years in the future.")
             result = False
 

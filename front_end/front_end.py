@@ -17,7 +17,7 @@ s_manager = None
 if len(found) == 1:
     s_manager = manager(current_events_filepath=found[0])
 elif len(found) > 1 :
-    s_manager = manager(current_events_filepath=found[0], )
+    s_manager = manager(current_events_filepath=found[0], test_date_time=found[1])
 else:
     s_manager = manager()
 
