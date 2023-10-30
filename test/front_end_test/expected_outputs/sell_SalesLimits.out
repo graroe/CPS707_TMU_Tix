@@ -1,5 +1,5 @@
 Enter session type <sales or admin>: 
-Sales login successful.
+Sales agent login successful.
 Enter event name: 
 Current number of tickets: 10\nEnter number of tickets to sell: 
 Maximum of 8 Tickets can be sold per transaction\nEnter number of tickets to sell: 

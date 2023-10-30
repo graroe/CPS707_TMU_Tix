@@ -204,7 +204,7 @@ class manager():
         new_amount = -1
 
         print("Current number of tickets: " + str(current_amount))
-        while new_amount < 0:
+        while new_amount <= 0:
             user_input = input("Enter number of tickets to sell: ")
             if self.escape_character(user_input):
                 return self.escape_text
@@ -243,7 +243,7 @@ class manager():
         new_amount = -1
 
         print("Current number of tickets: " + str(current_amount))
-        while new_amount < 0:
+        while new_amount <= 0:
             user_input = input("Enter number of tickets to return: ")
             if self.escape_character(user_input):
                 return self.escape_text

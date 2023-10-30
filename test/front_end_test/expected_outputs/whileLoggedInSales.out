@@ -1,6 +1,6 @@
 Enter session type <sales or admin>: 
 Sales agent login successful.
-Command not authorized for sales account.
-Command not authorized for sales account.
-Command not authorized for sales account.
+Access denied. Must be in admin mode.
+Access denied. Must be in admin mode.
+Access denied. Must be in admin mode.
 Session terminated.
