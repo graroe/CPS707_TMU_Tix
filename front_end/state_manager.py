@@ -5,6 +5,7 @@
 from datetime import datetime
 from event import event
 import re
+import sys
 
 session_types = ["sales","admin"]
 session_full_name = {"sales":"Sales agent", "admin":"Admin"}
@@ -139,6 +140,7 @@ class manager():
             new_amount = -1
 
             print("Current number of tickets: " + str(current_amount))
+            #sys.stdout.write("Current number of tickets: " + str(current_amount) +'\n')
             while new_amount < 0 or new_amount + current_amount >= 9999:
                 user_input = input("Enter number of tickets to add: ")
                 if self.escape_character(user_input):
@@ -154,7 +156,7 @@ class manager():
             
             new_total = new_amount + current_amount
             event.new_tickets = new_total
-            self.transaction_records.append(self.construct_record("04", event_name, new_amount, date = event_date))
+            self.transaction_records.append(self.construct_record("04", event_name, new_amount))
             return str(new_amount) + " tickets added. New total: " + str(new_total)
         else:
             return "Access denied. Must be in admin mode."

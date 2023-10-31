@@ -46,7 +46,7 @@ for file_name in os.listdir():
         actual_output = o_file.read().rstrip('\n')
     os.chdir("../expected_outputs")
     with open(test_name + ".out") as e_file:
-        expected_output = e_file.read().replace("\\n", "\n") #Comment out .replace... to see newline chars in expected
+        expected_output = e_file.read().replace("(\\r\\n|\\n)", "\n") #Comment out .replace... to see newline chars in expected
                                                                 #note: may cause some tests to fail
     success = actual_output == expected_output
     daily_file_success = True
