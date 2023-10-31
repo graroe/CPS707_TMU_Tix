@@ -1,6 +1,6 @@
 Enter session type <sales or admin>: 
 Admin login successful.
 Enter event name: 
-Current number of tickets: 10(\r\n|\n)Enter number of tickets to add: 
+Current number of tickets: 10\nEnter number of tickets to add: 
 11 tickets added. New total: 21
 Session terminated.
