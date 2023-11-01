@@ -5,9 +5,6 @@ Current number of tickets: 10\nEnter number of tickets to sell:
 8 tickets sold. New total: 2
 Enter event name:
 Current number of tickets: 2\nEnter number of tickets to sell: 
-Not enough tickets.\nCurrent number of tickets: 2\nEnter number of tickets to sell: 
+Not enough tickets.\nEnter number of tickets to sell: 
 2 tickets sold. New total: 0
-Enter event name:
-That event is sold out.\nEnter event name: 
-Transaction canceled
 Session terminated.

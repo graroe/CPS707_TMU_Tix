@@ -201,7 +201,7 @@ class manager():
             if not event_name in self.events.keys():
                 event_name = ""
                 print("Event not found.")
-        
+
         event = self.events[event_name]
         current_amount = event.avail_tickets
         new_amount = -1
@@ -225,7 +225,10 @@ class manager():
                     print("Maximum of 8 Tickets can be sold per transaction")
 
         new_total = current_amount - new_amount
-        event.avail_tickets = new_total
+        self.events[event_name].avail_tickets=new_total
+        #event.avail_tickets = new_total
+        #current_amount -= new_amount
+
         self.transaction_records.append(self.construct_record("01", event_name, new_amount))
         return str(new_amount) + " tickets sold. New total: " + str(new_total)
 
@@ -291,6 +294,7 @@ class manager():
             result = bool(date)
         except ValueError:
             result = False
+            return result
         current_datetime = datetime.today()
         if self.test_date_time != False:
              current_datetime = datetime.strptime(self.test_date_time, format)
