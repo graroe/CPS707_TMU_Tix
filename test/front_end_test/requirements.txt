@@ -1,0 +1,7 @@
+CPS707 Assignment #3
+Sean Adlam 500787559
+Graham Roebuck 500986436
+
+Our testing suite utilizes the Python module 'pexpect'. This module spawns a child process of 'front_end.py' which we then pass commands and compare the terminal output to our expected output. We are then storing the actual output in the 'actual_outputs' directory.
+
+While 'pexpect' performs an initial comparison while we are assembling the actual output file, we verify that the actual output file matches our expected output file by performing a string comparison of the two files before determining if a test case has passed or failed.
