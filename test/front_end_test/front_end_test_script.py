@@ -21,13 +21,14 @@ for file_name in os.listdir():
     with open("../expected_outputs/" + test_name + ".out") as e_file:
         expected = e_file.read().splitlines()
     #make new file to store test result in
-    #stay in this dir to write actual outputs into
+    #go to this dir to write actual outputs into
     os.chdir("../actual_outputs")
     with open(test_name +"_result.txt", 'w') as o_file:
-        #spawn program, feed it inputs line by line, expects expected output lines, write resuts to file
+        #spawn program, feed it inputs line by line, expects expected output (also fed in line by line), write resuts to file
         prog = pexpect.popen_spawn.PopenSpawn("python3 ../../../front_end/front_end.py" +
                                                " ../resources/current_events_example.txt" +" 20231020")
         i = 0
+        #first expected line is always the same
         prog.expect("Type 'login' to continue.")
         for input_line in inputs:
             prog.sendline(input_line)
@@ -46,12 +47,13 @@ for file_name in os.listdir():
         actual_output = o_file.read().rstrip('\n')
     os.chdir("../expected_outputs")
     with open(test_name + ".out") as e_file:
-        expected_output = e_file.read().replace("\\n", "\n") #Comment out .replace... to see newline chars in expected
-                                                                #note: may cause some tests to fail
+        expected_output = e_file.read().replace("\\n", "\n")
+    #String compare of whole actual and expected files
     success = actual_output == expected_output
     daily_file_success = True
     actual_daily = "did not write"
     expected_daily = ""
+    #checks for expected daily file, and does a comparsion with written daily file if found
     if os.path.exists(test_name + "_Daily.out"):
         with open(test_name + "_Daily.out") as e_daily_file:
             expected_daily = e_daily_file.read()
@@ -63,6 +65,7 @@ for file_name in os.listdir():
         print("sucesss!\n")
         log_file.write(" test succeeded\n")  
     else:
+        #test failure: writes details to log file
         print("failed. check log file" + log_file.name + " for details\n")
         log_file.write(" test failed\n")
         if not success:

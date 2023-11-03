@@ -14,10 +14,13 @@ args = arg_parser.parse_args()
 found = args.found
 s_manager = None
 #Check command line arguments optional and/or test properties
+#argument 1: sets filepath for reading current events file (useful for testing)
 if len(found) == 1:
     s_manager = manager(current_events_filepath=found[0])
+#argument 2: sets a fake date time. ONLY useful for testing (so test files need not be updated constantly to "valid" dates)
 elif len(found) > 1 :
     s_manager = manager(current_events_filepath=found[0], test_date_time=found[1])
+#no arguments: default settings
 else:
     s_manager = manager()
 
