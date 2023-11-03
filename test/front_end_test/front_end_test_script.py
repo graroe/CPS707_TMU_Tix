@@ -46,12 +46,15 @@ for file_name in os.listdir():
         actual_output = o_file.read().rstrip('\n')
     os.chdir("../expected_outputs")
     with open(test_name + ".out") as e_file:
-        expected_output = e_file.read().replace("\\n", "\n") #Comment out .replace... to see newline chars in expected
-                                                                #note: may cause some tests to fail
+        expected_output = e_file.read().replace("\\n", "\n") 
+
+    # string comparison of actual vs expected to verify test result
     success = actual_output == expected_output
     daily_file_success = True
     actual_daily = "did not write"
     expected_daily = ""
+
+    # checks for the existence of a daily transaction file, and compares against expected daily transaction if found.
     if os.path.exists(test_name + "_Daily.out"):
         with open(test_name + "_Daily.out") as e_daily_file:
             expected_daily = e_daily_file.read()
