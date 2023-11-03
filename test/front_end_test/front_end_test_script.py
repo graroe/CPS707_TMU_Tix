@@ -40,7 +40,7 @@ for file_name in os.listdir():
             o_file.write(prog.after.decode('utf-8') + "\n")
             i += 1  
 
-    #compare actual written file to expected file and expected daily file (if applicable), ensure no diffs
+    # string comparison actual written file to expected file and expected daily file (if applicable), ensure no diffs
     #failed test details written to log file
     with open(test_name +"_result.txt") as o_file:
         actual_output = o_file.read().rstrip('\n')
@@ -48,7 +48,7 @@ for file_name in os.listdir():
     with open(test_name + ".out") as e_file:
         expected_output = e_file.read().replace("\\n", "\n") 
 
-    # string comparison of actual vs expected to verify test result
+    # report test result
     success = actual_output == expected_output
     daily_file_success = True
     actual_daily = "did not write"
