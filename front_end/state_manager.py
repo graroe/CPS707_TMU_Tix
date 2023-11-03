@@ -226,8 +226,6 @@ class manager():
 
         new_total = current_amount - new_amount
         self.events[event_name].avail_tickets=new_total
-        #event.avail_tickets = new_total
-        #current_amount -= new_amount
 
         self.transaction_records.append(self.construct_record("01", event_name, new_amount))
         return str(new_amount) + " tickets sold. New total: " + str(new_total)
