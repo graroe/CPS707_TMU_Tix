@@ -9,4 +9,5 @@ The outer loop fecthes any and all input files in the 'input' directory, and for
 The inner loop feeds the child process the input file line by line and receives the actual program output, writing it into an 'actual output' file.
 
 While 'pexpect' performs an initial comparison while we are assembling the 'actual output' file, we verify that the actual output file matches our expected output file by performing a string comparison of the two files before determining if a test case has passed or failed.
+
 In some cases, a daily transaction file written out by the child process is also checked against an expected file. The test suite determines if this additional check is needed depending on the existence of an expected file ending with '_Daily.out'
