@@ -10,6 +10,33 @@ def handle_transaction(code, name, details):
             print("Constraint error: event named " + name +" already exists")
         else:
             master_dictionary[name] = event(date=details.date, avail_tickets=details.new_tickets)
+    #delete
+    elif (code == "05"):
+        if not name in master_dictionary:
+            print("Error: attempeted to delete event " + name +" that does not exist")
+        else:
+            master_dictionary.pop(name)
+    #add/return
+    elif (code == "02" or code == "04"):
+        if not name in master_dictionary:
+            print("Error: attempeted to increment tickets for event " + name +" that does not exist")
+        else:
+            new_total = master_dictionary[name].avail_tickets + details.new_tickets
+            if new_total > 9999:
+                print("Error: attempeted to increment tickets above maximum for event " + name)
+            else:
+                master_dictionary[name].avail_tickets = new_total
+    #sell
+    elif (code =="01"):
+        if not name in master_dictionary:
+            print("Error: attempeted to sell tickets for event " + name +" that does not exist")
+        else:
+            new_total = master_dictionary[name].avail_tickets - details.new_tickets
+            if new_total < 0:
+                print("Error: attempeted to sell more tickets than avialable for event " + name)
+            else:
+                master_dictionary[name].avail_tickets = new_total
+        
 
 #TODO: merge daily transaction files into merge file 
 with open("master_events_file.txt") as mas_file:
