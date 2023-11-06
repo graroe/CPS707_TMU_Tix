@@ -4,6 +4,7 @@ from event import event
 #this can be removed if we just hand in back_end folder
 os.chdir("back_end")
 
+#function to update master dictionary based on input line from merged transaction file
 def handle_transaction(code, name, details):
     #create
     if (code == "03"):
@@ -46,7 +47,6 @@ def date_in_past(input):
     if current_datetime > date:
         return True
     return False
-    
 
 #TODO: merge daily transaction files into merge file 
 with open("master_events_file.txt") as mas_file:
@@ -71,7 +71,6 @@ for event_line in new_events:
     handle_transaction(code, name, details)
 
 #remove all out-of-date events, write entries to output files
-#TODO: sort master file by date
 names = list(master_dictionary.keys())
 new_master_buffer = []
 with open("current_events_file.txt", 'w') as current_file:
@@ -88,11 +87,3 @@ with open("current_events_file.txt", 'w') as current_file:
 new_master_buffer.sort()
 with open("new_master_events_file.txt", 'w') as new_master_file:
     new_master_file.write("\n".join(new_master_buffer))
-
- 
-
-
-#temporary loop to check implementation
-for entry in master_dictionary:
-    event = master_dictionary[entry]
-    print("name: " + entry + " date: " + event.date + " tickets: "+ str(event.avail_tickets))
