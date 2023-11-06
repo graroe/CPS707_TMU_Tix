@@ -31,7 +31,7 @@ for event_line in new_events:
     details = event(date=fields[2], new_tickets=int(fields[3]))
     handle_transaction(code, name, details)
 
-#
+#temporary loop to check implementation
 for entry in master_dictionary:
     event = master_dictionary[entry]
     print("name: " + entry + " date: " + event.date + " tickets: "+ str(event.avail_tickets))
