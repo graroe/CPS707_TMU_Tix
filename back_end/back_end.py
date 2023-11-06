@@ -1,12 +1,12 @@
-import os
-from datetime import datetime
-from event import event
 ### The Back End system:
 #   - concatenates the Daily Event Transaction Files to a single Merged Event Transaction File.
 #   - ensures that the transactions in the Merged Event Transaction File are valid.
 #   - Updates the Master Event File and Current Event File with the transactions from the Merged Event Transaction File.
 ###
 
+import os
+from datetime import datetime
+from event import event
 #this can be removed if we just hand in back_end folder
 os.chdir("back_end")
 
