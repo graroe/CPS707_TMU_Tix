@@ -73,17 +73,21 @@ for event_line in new_events:
 #remove all out-of-date events, write entries to output files
 #TODO: sort master file by date
 names = list(master_dictionary.keys())
+new_master_buffer = []
+with open("current_events_file.txt", 'w') as current_file:
+    for name in names:
+        if date_in_past(master_dictionary[name].date):
+            master_dictionary.pop(name)
+        else:
+            tix = str(master_dictionary[name].avail_tickets).zfill(4)
+            name_spaced = name.ljust(15)
+            new_master_buffer.append(" ".join([master_dictionary[name].date, tix, name_spaced]))
+            current_file.write(" ".join([name_spaced, tix]) + '\n')
+    current_file.write("End             0000")
+
+new_master_buffer.sort()
 with open("new_master_events_file.txt", 'w') as new_master_file:
-    with open("current_events_file.txt", 'w') as current_file:
-        for name in names:
-            if date_in_past(master_dictionary[name].date):
-                master_dictionary.pop(name)
-            else:
-                tix = str(master_dictionary[name].avail_tickets).zfill(4)
-                name_spaced = name.ljust(15)
-                new_master_file.write(" ".join([master_dictionary[name].date, tix, name_spaced])+ '\n')
-                current_file.write(" ".join([name_spaced, tix]) + '\n')
-        current_file.write("End             0000")
+    new_master_file.write("\n".join(new_master_buffer))
 
  
 
