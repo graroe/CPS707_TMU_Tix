@@ -81,12 +81,11 @@ names = list(master_dictionary.keys())
 new_master_buffer = []
 with open("current_events_file.txt", 'w') as current_file:
     for name in names:
-        if date_in_past(master_dictionary[name].date):
-            master_dictionary.pop(name)
-        else:
-            tix = str(master_dictionary[name].avail_tickets).zfill(4)
-            name_spaced = name.ljust(15)
-            new_master_buffer.append(" ".join([master_dictionary[name].date, tix, name_spaced]))
+        name_spaced = name.ljust(15)
+        tix = str(master_dictionary[name].avail_tickets).zfill(4)
+        new_master_buffer.append(" ".join([master_dictionary[name].date, tix, name_spaced]))
+        #only write to current file if event date is today or later
+        if not date_in_past(master_dictionary[name].date):
             current_file.write(" ".join([name_spaced, tix]) + '\n')
     current_file.write("End             0000")
 
