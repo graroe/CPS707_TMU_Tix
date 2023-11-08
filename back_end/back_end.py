@@ -44,6 +44,7 @@ def handle_transaction(code, name, details):
             else:
                 master_dictionary[name].avail_tickets = new_total
 
+#function to determine is a date is in the past
 def date_in_past(input):
     date = str(input)
     format = "%Y%m%d"
@@ -54,9 +55,11 @@ def date_in_past(input):
     return False
 
 
-#this can be removed if we just hand in back_end folder
-os.chdir("back_end")
-# merge daily transaction files into merge file 
+#can be run from back_end folder or parent folder
+if not (os.getcwd()[-8:] == "back_end"):
+    os.chdir("back_end")
+
+#merge daily transaction files into merge file 
 with open("merged_events_file.txt", 'w') as merg_file:
     for file_name in os.listdir("from_front_end"):
         with open("from_front_end/" + file_name) as in_file:
@@ -96,5 +99,8 @@ with open("to_front_end/current_events_file.txt", 'w') as current_file:
     current_file.write("End             0000")
 
 new_master_buffer.sort()
+#to demonstrate difference between old and new master file, we have it writing out with a different filename
+#however, the real system should overwrite the file
+#when delpoyed, this filename will be replaced with "master_events_file.txt"
 with open("new_master_events_file.txt", 'w') as new_master_file:
     new_master_file.write("\n".join(new_master_buffer))
