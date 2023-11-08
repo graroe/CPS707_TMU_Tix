@@ -4,11 +4,10 @@
 #   - Updates the Master Event File and Current Event File with the transactions from the Merged Event Transaction File.
 ###
 
-import os
+
 from datetime import datetime
 from event import event
-#this can be removed if we just hand in back_end folder
-os.chdir("back_end")
+import os
 
 #function to update master dictionary based on input line from merged transaction file
 def handle_transaction(code, name, details):
@@ -54,7 +53,14 @@ def date_in_past(input):
         return True
     return False
 
-#TODO: merge daily transaction files into merge file 
+
+#this can be removed if we just hand in back_end folder
+os.chdir("back_end")
+# merge daily transaction files into merge file 
+with open("merged_events_file.txt", 'w') as merg_file:
+    for file_name in os.listdir("from_front_end"):
+        with open("from_front_end/" + file_name) as in_file:
+            merg_file.write(in_file.read()+'\n')
 with open("master_events_file.txt") as mas_file:
     old_events = mas_file.readlines()
 with open("merged_events_file.txt") as merg_file:
@@ -76,15 +82,15 @@ for event_line in new_events:
     details = event(date=fields[2], new_tickets=int(fields[3]))
     handle_transaction(code, name, details)
 
-#remove all out-of-date events, write entries to output files
+#write entries to output files
 names = list(master_dictionary.keys())
 new_master_buffer = []
-with open("current_events_file.txt", 'w') as current_file:
+with open("to_front_end/current_events_file.txt", 'w') as current_file:
     for name in names:
         name_spaced = name.ljust(15)
         tix = str(master_dictionary[name].avail_tickets).zfill(4)
         new_master_buffer.append(" ".join([master_dictionary[name].date, tix, name_spaced]))
-        #only write to current file if event date is today or later
+        #only write to current file if event date is not expired
         if not date_in_past(master_dictionary[name].date):
             current_file.write(" ".join([name_spaced, tix]) + '\n')
     current_file.write("End             0000")
