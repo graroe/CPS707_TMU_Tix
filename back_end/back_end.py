@@ -20,27 +20,27 @@ def handle_transaction(code, name, details):
     #delete
     elif (code == "05"):
         if not name in master_dictionary:
-            print("Error: attempeted to delete event " + name +" that does not exist")
+            print("Error: attempted to delete event " + name +" that does not exist")
         else:
             master_dictionary.pop(name)
     #add/return
     elif (code == "02" or code == "04"):
         if not name in master_dictionary:
-            print("Error: attempeted to increment tickets for event " + name +" that does not exist")
+            print("Error: attempted to increment tickets for event " + name +" that does not exist")
         else:
             new_total = master_dictionary[name].avail_tickets + details.new_tickets
             if new_total > 9999:
-                print("Error: attempeted to increment tickets above maximum for event " + name)
+                print("Error: attempted to increment tickets above maximum for event " + name)
             else:
                 master_dictionary[name].avail_tickets = new_total
     #sell
     elif (code =="01"):
         if not name in master_dictionary:
-            print("Error: attempeted to sell tickets for event " + name +" that does not exist")
+            print("Error: attempted to sell tickets for event " + name +" that does not exist")
         else:
             new_total = master_dictionary[name].avail_tickets - details.new_tickets
             if new_total < 0:
-                print("Error: attempeted to sell more tickets than avialable for event " + name)
+                print("Error: attempted to sell more tickets than available for event " + name)
             else:
                 master_dictionary[name].avail_tickets = new_total
     else:
