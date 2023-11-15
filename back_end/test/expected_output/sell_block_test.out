@@ -1,0 +1,2 @@
+Error: attempted to sell tickets for event NotExist that does not exist
+Error: attempted to sell more tickets than available for event TedTalk
