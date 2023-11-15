@@ -43,6 +43,8 @@ def handle_transaction(code, name, details):
                 print("Error: attempeted to sell more tickets than avialable for event " + name)
             else:
                 master_dictionary[name].avail_tickets = new_total
+    else:
+        print("transaction code not recognized")
 
 #function to determine is a date is in the past
 def date_in_past(input):
