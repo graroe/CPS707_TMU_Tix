@@ -99,8 +99,6 @@ with open("to_front_end/current_events_file.txt", 'w') as current_file:
     current_file.write("End             0000")
 
 new_master_buffer.sort()
-#to demonstrate difference between old and new master file, we have it writing out with a different filename
-#however, the real system should overwrite the file
-#when delpoyed, this filename will be replaced with "master_events_file.txt"
-with open("new_master_events_file.txt", 'w') as new_master_file:
+#overwrite master events file with updates
+with open("master_events_file.txt", 'w') as new_master_file:
     new_master_file.write("\n".join(new_master_buffer))
